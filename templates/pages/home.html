@@ -14,7 +14,7 @@
             {% csrf_token %}
             <input type='hidden' value='/' name='next' />
             <!-- <input type='hidden' value='/fake-url' name='next' /> -->
-            <textarea class='form-control' name='content' placeholder='your tweet...'></textarea>
+            <textarea required='required' class='form-control' name='content' placeholder='your tweet...'></textarea>
             <button type='submit' class='btn btn-primary'>Tweet</button>
         </form>
     </div>
@@ -44,7 +44,9 @@ function tweetCreateFormDidSubmit(event) {
             const newTweetJson = xhr.response
             // const newTweetJson = JSON.parse(newTweet)
             const newTweetElement = formatTweetElement(newTweetJson)
-            console.log(newTweetElement)
+            const ogHtml = tweetsContainerElement.innerHTML
+            tweetsContainerElement.innerHTML = newTweetElement + ogHtml
+            myForm.reset()
         }
     }
     xhr.send(myFormData)
